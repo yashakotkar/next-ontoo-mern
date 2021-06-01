@@ -48,7 +48,7 @@ function ClientMainFooter() {
               <Grid container>
                 <Grid item xs={12} md={12} className={classes.detailBlock}>
                   <Typography variant="h6" gutterBottom component="h6">
-                    <Link href={"/aboutus"}>About US</Link>
+                    <Link href={"/about-us"}>About US</Link>
                   </Typography>
                   <Typography variant="body2" gutterBottom component="p">
                     We want to make your occassions special and memorable.
@@ -56,13 +56,13 @@ function ClientMainFooter() {
                 </Grid>
                 <Grid item xs={12} md={12} className={classes.detailBlock}>
                   <Typography variant="h6" gutterBottom component="h6">
-                    <Link href="Contact">Contact</Link>
+                    <Link href="/contact-us">Contact</Link>
                   </Typography>
                   <Typography variant="body2" gutterBottom component="p">
                     Phone Number :{" "}
                     <span>
-                      <a href={`tel:+917000347183`}>
-                        +91{process.env.MY_PHONE_NUMBER}
+                      <a href={`tel:917000347183`}>
+                        +91-{process.env.MY_PHONE_NUMBER}
                       </a>
                     </span>
                   </Typography>
@@ -102,10 +102,10 @@ function ClientMainFooter() {
                 Links
               </Typography>
               <Typography variant="body2" gutterBottom component="p">
-                <Link href={"/aboutus"}>About Us</Link>
+                <Link href={"/about-us"}>About Us</Link>
               </Typography>
               <Typography variant="body2" gutterBottom component="p">
-                <Link href={"/contactus"}>Contact Us</Link>
+                <Link href={"/contact-us"}>Contact Us</Link>
               </Typography>
               <Typography variant="body2" gutterBottom component="p">
                 <Link href={"/privacy-policy"}>Pricvacy Policy</Link>
