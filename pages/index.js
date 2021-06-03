@@ -176,8 +176,14 @@ export async function getServerSideProps({ params }) {
         },
       ],
     });
-    return { props: { homeBlocks, featureSetting } };
+    return {
+      props: {
+        homeBlocks: JSON.parse(JSON.stringify(homeBlocks)),
+        featureSetting: JSON.parse(JSON.stringify(featureSetting.dataValues)),
+      },
+    };
   } catch (error) {
+    console.log(error);
     return { notFound: true };
   }
 }
