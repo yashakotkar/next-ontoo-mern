@@ -2,6 +2,7 @@ import {
   AppBar,
   Button,
   createMuiTheme,
+  fade,
   Grid,
   IconButton,
   InputAdornment,
@@ -22,9 +23,57 @@ import CartIcon from "@material-ui/icons/ShoppingCart";
 import AdminIcon from "@material-ui/icons/SupervisorAccount";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import useStyles from "./navbarMuiStyles";
 
-export default function ClientMainNavbar() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    // backgroundColor: "rgba( 0,0,0,0.5)",
+    boxShadow: "none",
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
+    },
+  },
+  search: {
+    position: "relative",
+    // color: theme.palette.common.white,
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(2),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(3),
+      width: "auto",
+    },
+    "& .MuiInputBase-root": {
+      // color: theme.palette.common.white,
+      padding: "0 0.5rem",
+    },
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+}));
+
+export default function ClientMainNavbar({ backgroundColor }) {
   const theme = useTheme();
   const classes = useStyles();
 
@@ -32,21 +81,21 @@ export default function ClientMainNavbar() {
     palette: {
       type: "dark",
       primary: {
-        main: "rgba(0, 0, 0, 0.5)",
+        main: backgroundColor || theme.palette.primary.main,
       },
     },
   });
 
   return (
-    <AppBar position="fixed" className={classes.root} top="0">
-      <Toolbar variant="dense">
-        <Link href="/">
-          <div>
-            <Image src="/onntooLogoWhite.png" width={200} height={45} />
-          </div>
-        </Link>
-        <div className={classes.grow} />
-        <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkTheme}>
+      <AppBar position="fixed" className={classes.root} top="0">
+        <Toolbar variant="dense">
+          <Link href="/">
+            <div>
+              <Image src="/onntooLogoWhite.png" width={200} height={45} />
+            </div>
+          </Link>
+          <div className={classes.grow} />
           <TextField
             size="small"
             className={classes.search}
@@ -63,8 +112,8 @@ export default function ClientMainNavbar() {
           <Button startIcon={<LocationOnIcon />}>Location</Button>
           <Button startIcon={<AdminIcon />}>Admin</Button>
           <Button startIcon={<CartIcon />}>Cart</Button>
-        </ThemeProvider>
-      </Toolbar>
-    </AppBar>
+        </Toolbar>
+      </AppBar>
+    </ThemeProvider>
   );
 }

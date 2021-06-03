@@ -26,7 +26,7 @@ export default function Home(props) {
           rel="stylesheet"
         />
       </Head>
-      <ClientMainNavbar />
+      <ClientMainNavbar backgroundColor="rgba(0, 0, 0, 0.6)" />
       <ClientLayout>
         {featureSetting.homeImages.length > 0 && (
           <Carousel
@@ -141,7 +141,7 @@ export default function Home(props) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps({ params }) {
   const res = await fetch(`${process.env.BASE_URL}/api/client/feature-setting`);
   const data = await res.json();
   console.log("Result", data.homeBlocks);
