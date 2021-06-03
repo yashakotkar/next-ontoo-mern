@@ -183,7 +183,6 @@ export async function getServerSideProps({ params }) {
       },
     };
   } catch (error) {
-    console.log(error);
     return { notFound: true };
   }
 }
