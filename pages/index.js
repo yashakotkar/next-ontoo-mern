@@ -7,6 +7,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import HomeBlock from "../components/home/HomeBlock";
 import ClientMainNavbar from "../components/navbars/ClientMainNavbar";
+import connectDB from "../utils/connectDB";
+import sequelize from "../models";
 
 export default function Home(props) {
   const { featureSetting, homeBlocks } = props;
@@ -142,9 +144,40 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps({ params }) {
-  const res = await fetch(`${process.env.BASE_URL}/api/client/feature-setting`);
-  const data = await res.json();
-  console.log("Result", data.homeBlocks);
-  console.log("Result", data.featureSetting);
-  return { props: data };
+  await connectDB();
+
+  try {
+    // Get data from your database
+    const featureSetting = await sequelize.models.Setting.findOne({
+      where: { id: 1 },
+    });
+
+    const homeBlocks = await sequelize.models.Home.findAll({
+      include: [
+        {
+          model: sequelize.models.Menu,
+          include: [
+            {
+              model: sequelize.models.Product,
+              order: [{ rating: "ASC" }],
+              pageLimit: 5,
+            },
+          ],
+        },
+        {
+          model: sequelize.models.Category,
+          include: [
+            {
+              model: sequelize.models.Product,
+              order: [{ rating: "ASC" }],
+              pageLimit: 5,
+            },
+          ],
+        },
+      ],
+    });
+    return { props: { homeBlocks, featureSetting } };
+  } catch (error) {
+    return { notFound: true };
+  }
 }
